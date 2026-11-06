@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+---
+<article class="wrap article">
+  <header class="article-head">
+    <a class="pill" href="{{ '/topics/' }}#{{ category | slug }}">{{ category }}</a>
+    <h1>{{ title }}</h1>
+    <p class="lede">{{ description }}</p>
+    <p class="meta">
+      <span>{{ site.author }}</span> ·
+      <span>Last reviewed <time datetime="{{ (updated or page.date) | isoDate }}">{{ (updated or page.date) | readableDate }}</time></span> ·
+      <span>{{ content | readingTime }}</span>
+    </p>
+  </header>
+  {% if takeaways %}
+  <aside class="takeaways" aria-label="Key takeaways">
+    <h2>Key takeaways</h2>
+    <ul>{% for t in takeaways %}<li>{{ t }}</li>{% endfor %}</ul>
+  </aside>
+  {% endif %}
+  <div class="prose">
+    {{ content | safe }}
+  </div>
+  {% set rel = collections.articles | related(page, category) %}
+  {% if rel.length %}
+  <section class="related">
+    <h2>More on {{ category }}</h2>
+    <ul class="card-list compact">
+      {% for p in rel %}<li><a href="{{ p.url }}">{{ p.data.title }}</a></li>{% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</article>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":{{ title | dump | safe }},"description":{{ description | dump | safe }},"author":{"@type":"Person","name":{{ site.author | dump | safe }}},"datePublished":"{{ page.date | isoDate }}","dateModified":"{{ (updated or page.date) | isoDate }}","mainEntityOfPage":"{{ site.url }}{{ page.url }}"}
+</script>

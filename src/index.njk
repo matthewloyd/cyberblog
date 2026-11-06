@@ -1,0 +1,25 @@
+---
+layout: layouts/base.njk
+---
+<section class="hero wrap">
+  <p class="eyebrow">Governance · Risk · Compliance · Security</p>
+  <h1>Clear guidance on the security work that doesn't go out of date.</h1>
+  <p class="sub">{{ site.description }} Every article is written to stay useful for years and reviewed on a schedule.</p>
+  <a class="btn" href="{{ '/start-here/' }}">Start here</a><a class="btn ghost" href="{{ '/articles/' }}">Browse all articles</a>
+</section>
+
+<section class="block wrap">
+  <h2>Explore by topic</h2>
+  <ul class="topic-grid">
+    {% for cat in collections.categories %}
+    <li><a href="{{ '/topics/' }}#{{ cat | slug }}"><strong>{{ cat }}</strong><span>{{ (collections.articles | byCategory(cat)).length }} article{% if (collections.articles | byCategory(cat)).length != 1 %}s{% endif %}</span></a></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="block wrap">
+  <h2>Essential reading</h2>
+  <ul class="card-list">
+    {% for post in collections.articles %}{% include "card.njk" %}{% endfor %}
+  </ul>
+</section>

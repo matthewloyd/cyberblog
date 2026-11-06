@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+title: Topics
+description: Articles grouped by subject area.
+permalink: /topics/
+---
+<div class="page">
+  <h1>Topics</h1>
+  <p class="muted">Every article, grouped by subject.</p>
+  {% for cat in collections.categories %}
+  <section class="topic-section" id="{{ cat | slug }}">
+    <h2>{{ cat }}</h2>
+    <ul class="card-list compact">
+      {% for p in collections.articles | byCategory(cat) %}
+      <li><a href="{{ p.url }}"><strong>{{ p.data.title }}</strong></a><br><span class="muted small">{{ p.data.description }}</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>

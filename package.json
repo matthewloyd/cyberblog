@@ -1,0 +1,17 @@
+{
+  "name": "grc-blog",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.8",
+    "@11ty/eleventy-plugin-rss": "^2.0.4"
+  },
+  "type": "module"
+}
