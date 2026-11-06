@@ -35,23 +35,22 @@ Topics, the article list, RSS feed, and sitemap update automatically. Add it to 
 
 ## Site settings
 
-Edit `src/_data/site.json`: title, tagline, author, the public URL (`url`, used for canonical links, RSS, and sitemap), and `mainSite`, which adds a link back to your main website in the header and footer.
+Edit `src/_data/site.js`: title, tagline, author, and `mainSite` (adds a link back to your main website in the header and footer). The public URL is detected automatically on Vercel; to force one, set a `SITE_URL` environment variable in Vercel (e.g. `https://blog.yoursite.com`).
 
-## Deploy (GitHub Pages)
+## Deploy (Vercel)
 
-1. Push this folder to a GitHub repository (branch `main`).
-2. In the repo: **Settings → Pages → Source: GitHub Actions**.
-3. Every push to `main` builds and publishes the site via `.github/workflows/deploy.yml`.
+1. Sign in at vercel.com with GitHub, then **Add New → Project → Import** `matthewloyd/cyberblog`.
+2. Vercel reads `vercel.json` (Eleventy preset, `npm run build`, output `_site`). Click **Deploy**.
+3. Every push to `main` redeploys automatically, and pull requests get preview URLs.
 
-The site also deploys unchanged to Netlify, Cloudflare Pages, or Vercel: build command `npm run build`, output folder `_site`.
+A GitHub Pages workflow is kept as a manual backup (Actions → "Deploy to GitHub Pages (manual backup)" → Run workflow).
 
 ## Connect it to your main website
 
-**Option A: subdomain (recommended), e.g. `blog.yoursite.com`**
-1. GitHub repo → Settings → Pages → Custom domain → enter `blog.yoursite.com`.
-2. At your DNS provider, add a `CNAME` record: `blog` → `<your-github-username>.github.io`.
-3. Tick **Enforce HTTPS** once the certificate is issued.
-4. Set `url` in `src/_data/site.json` to `https://blog.yoursite.com`.
-5. Add a "Blog" link in your main site's navigation pointing to it.
+**Subdomain (recommended), e.g. `blog.yoursite.com`**
+1. Vercel project → **Settings → Domains → Add** `blog.yoursite.com`.
+2. At your DNS provider, add the record Vercel shows (usually `CNAME blog → cname.vercel-dns.com`).
+3. Vercel issues the HTTPS certificate automatically. Redeploy once so canonical links use the new domain.
+4. Add a "Blog" link in your main site's navigation.
 
-**Option B: subfolder, e.g. `yoursite.com/blog`.** This needs your main site's host to proxy or serve the files under `/blog`. Build with `PATH_PREFIX=/blog/ npm run build` and upload `_site/` there, or set up a reverse-proxy rule. Workable, but more setup than a subdomain.
+**Subfolder, e.g. `yoursite.com/blog`.** Your main site's host must proxy `/blog` to the Vercel deployment, and the blog must be built with `PATH_PREFIX=/blog/`. Workable, but more setup than a subdomain.

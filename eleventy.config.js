@@ -1,6 +1,6 @@
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import { HtmlBasePlugin } from "@11ty/eleventy";
-import site from "./src/_data/site.json" with { type: "json" };
+import site from "./src/_data/site.js";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(HtmlBasePlugin);
